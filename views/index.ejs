@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Adobe Launch API - Express Demo Application</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./stylesheets/style.css" rel="stylesheet" type="text/css" media="all" />
+<!--web-fonts-->
+<link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+<!--//web-fonts-->
+</head>
+
+<body>
+    <h1>Adobe Launch API - Express Demo Application</h1>
+    <!-- main -->
+    <div class="main">
+        <div class="">
+            <div class="signin-form profile">
+                <% if (locals.error) { %>
+ <h4 style="color:red;"><%=locals.error%></h4>
+<% } %>
+                <div class="login-form">
+                    <form action="/" method="post">
+                <h4>Please Enter Company ID</h4>
+                    <br>
+                  <input type="text" name="company"  value="COfd4b98d0baf041dc9f4987890344d929" 
+                               placeholder="Access Token" required>
+                    <br><br><br>
+
+
+                                    <h5>Please Enter Access Token</h5>
+<br><input type="text" name="accessToken" 
+                               placeholder="Access Token" required>
+                           <div class="tp">
+                            <input type="submit" value="List All Properties">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+      <div class="clear"></div>
+        <!--//signin-form-->    
+    </div>
+    <div class="copyright">
+        <p> &copy; All rights reserved </a></p>
+    </div>                  
+</body>
+</html>
