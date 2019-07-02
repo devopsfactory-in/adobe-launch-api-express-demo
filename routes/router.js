@@ -62,37 +62,28 @@ router.get('/home', checkUserAuth,function (req, res, next) {
   getCompanies();
 });
 // GET route after registering
-router.get('/dataelement',checkUserAuth, function (req, res, next) {
+router.get('/dataelement/:propertyId',checkUserAuth, function (req, res, next) {
   res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
-                            properties: 'data'});
+                            propertyId: req.params.propertyId});
 });
 
-router.post('/uploads',checkUserAuth, upload.array('dataelements', 12), function (req, res, next) {
+router.post('/uploads/:propertyId',checkUserAuth, upload.array('dataelements', 12), function (req, res, next) {
+  const upload = async () => {
+      try {
+        var company=await services.createDataElements(req,req.params.propertyId);
+        rimraf.sync("dataelements");
+        res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
+                             propertyId:req.params.propertyId});
+    }catch(err){
+         console.error(err) 
+        rimraf.sync("dataelements");
 
-const auth = async () => {
-    try {
-      var company=await connector.createDataElements(req.body.company,req.body.accessToken);
-      req.session.companyId = company.data.id;
-      req.session.companyName=company.data.attributes.name;
-      req.session.accessToken=req.body.accessToken;
-      rimraf.sync("dataelements");
-
-      res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
-                            properties: 'data'});
-
-   }catch(err){
-    console.error(err) 
-       //return res.redirect('/profile');
-      rimraf.sync("dataelements");
-
-      res.status(500);
-      res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
-                            properties: 'data'});
-
+        res.status(500);
+        res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
+                              propertyId:req.params.propertyId});
+      }
     }
-  }
-  auth();
-
+    upload();
 });
 
 module.exports = router;

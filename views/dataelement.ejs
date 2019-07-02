@@ -9,15 +9,15 @@
 
 <form ref='uploadForm' 
       id='uploadForm' 
-      action='/uploads' 
+      action='/uploads/<%=propertyId%>' 
       method='post' 
       enctype="multipart/form-data">
   <div class="form-group">
     <label for="exampleInputEmail1">Upload Data Element JSON</label>
      <input type="file" class="form-control-file" name="dataelements" multiple accept="*.json"  aria-describedby="fileHelp" placeholder="Please upload JSON file"/>
-    <small id="fileHelp" class="form-text text-muted">Pleas upload JSON files only.</small>
+    <small id="fileHelp" class="form-text text-muted">Pleas upload JSON files only.<%=propertyId%></small>
   </div>
-  <button type="submit" class="btn btn-primary">Upload</button>
+  <button type="submit"  class="btn btn-primary">Upload</button>
 </form>
 	</div></div>
   <% include bodyend %>
