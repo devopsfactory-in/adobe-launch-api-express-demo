@@ -5,7 +5,8 @@ var multer  = require('multer');
 var upload = multer({ dest: 'dataelements/' });                 
 var rimraf = require("rimraf");
 var common=require('../src/common.js');
-
+const fs = require('fs');
+const http = require('http');
 
 
 // GET route for reading data
@@ -73,17 +74,22 @@ router.post('/uploads/:propertyId',checkUserAuth, upload.array('dataelements', 1
         var company=await services.createDataElements(req,req.params.propertyId);
         rimraf.sync("dataelements");
         res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
-                             propertyId:req.params.propertyId});
+                             propertyId:req.params.propertyId,download:'true'});
     }catch(err){
-         console.error(err) 
+        console.error(err) 
         rimraf.sync("dataelements");
 
         res.status(500);
         res.render('dataelement', { company:{id:req.session.companyId,name:req.session.companyName},
-                              propertyId:req.params.propertyId});
+                              propertyId:req.params.propertyId,error:'Some error while creating the DataElements'});
       }
     }
     upload();
+});
+
+router.get('/download',checkUserAuth, function (req, res, next) {
+  const file = `result.log`;
+  res.download(file);
 });
 
 module.exports = router;

@@ -1,5 +1,5 @@
 var common=require('./common.js');
-var globalVar=require('./services.js');
+var globalVar=require('./global.js');
 
 const Reactor = require('@adobe/reactor-sdk').default;
 

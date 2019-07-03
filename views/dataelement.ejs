@@ -12,14 +12,63 @@
       action='/uploads/<%=propertyId%>' 
       method='post' 
       enctype="multipart/form-data">
+
+ <% if (locals.error) { %>
+ <h4 style="color:red;"><%=locals.error%></h4>
+<% } %>
   <div class="form-group">
-    <label for="exampleInputEmail1">Upload Data Element JSON</label>
+    <label for="exampleInputEmail1">Upload Data Element JSON for the Property '<%=propertyId%>' </label>
      <input type="file" class="form-control-file" name="dataelements" multiple accept="*.json"  aria-describedby="fileHelp" placeholder="Please upload JSON file"/>
-    <small id="fileHelp" class="form-text text-muted">Pleas upload JSON files only.<%=propertyId%></small>
+    <small id="fileHelp" class="form-text text-muted">Pleas upload JSON files only.</small>
+
+     
   </div>
+  <% if (locals.download) { %>
+     <div class="alert alert-success">DataElements created successfully, there may be a chance for error for few data elements. So, please download the result for more details <a href="/download">Download</a></div>
+    <% } %>
   <button type="submit"  class="btn btn-primary">Upload</button>
 </form>
-	</div></div>
+	</div>
+
+  Sample Dataelemnt Template
+  <div class="alert alert-secondary">
+  <pre><code>
+  [{
+    "attributes": {
+      "name": "digitalData.search.name",
+      "delegate_descriptor_id": "core::dataElements::javascript-variable",
+      "settings": "{\"path\":\"digitalData.search.name\"}"
+    },
+    "relationships": {
+      "extension": {
+        "data": {
+          "id": "${extensionId}",
+          "type": "extensions"
+        }
+      }
+    },
+    "type": "data_elements"
+  },
+  {
+    "attributes": {
+      "name": "digitalData.search.searchTerm",
+      "delegate_descriptor_id": "core::dataElements::javascript-variable",
+      "settings": "{\"path\":\"digitalData.search.searchTerm\"}"
+    },
+    "relationships": {
+      "extension": {
+        "data": {
+          "id": "${extensionId}",
+          "type": "extensions"
+        }
+      }
+    },
+    "type": "data_elements"
+  }
+]</code></pre>
+</div>
+
+  </div>
   <% include bodyend %>
 
   </body>
